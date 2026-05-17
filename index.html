@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>普發現金（資安演練）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+body { background:#fff5f8; font-family:sans-serif; scroll-behavior:smooth; }
+
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(135deg,#ff4d8d,#ff80ab);
+  padding:15px;
+  color:white;
+}
+
+.menu {
+  display:flex;
+  justify-content:center;
+  flex:1;
+}
+
+.menu-item {
+  background:white;
+  color:#ff4d8d;
+  padding:8px 16px;
+  border-radius:25px;
+  margin:5px;
+  cursor:pointer;
+}
+
+.logo-img {
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.period { font-size:13px; font-weight:bold; }
+
+.header {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:#d94b87;
+  color:white;
+  padding:30px;
+  border-radius:0 0 30px 30px;
+}
+
+.circle-title { display:flex; gap:15px; margin-top:15px; }
+
+.circle {
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:3px solid white;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  font-size:26px;
+}
+
+.card-grid {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:20px;
+  margin-top:30px;
+}
+
+.method-card {
+  border-radius:16px;
+  color:white;
+  padding:25px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.pink { background:linear-gradient(135deg,#d63384,#ff66a3);}
+.gold { background:linear-gradient(135deg,#a67c00,#d4af37);}
+.green { background:linear-gradient(135deg,#198754,#28a745);}
+
+.icon { font-size:40px; }
+.date { font-size:14px; margin:5px 0; }
+
+.prepare-box {
+  background:white;
+  color:#333;
+  border-radius:12px;
+  padding:12px;
+  margin-top:15px;
+  text-align:left;
+  font-size:14px;
+}
+
+.stats {
+  text-align:center;
+  margin-top:30px;
+  color:#000;
+}
+
+#formSection { display:none; margin-top:30px; }
+
+.warning-banner {
+  background:#ffcccc;
+  text-align:center;
+  padding:10px;
+  font-weight:bold;
+}
+
+.chat-btn {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff4d8d;
+  color:white;
+  border:none;
+  border-radius:50%;
+  width:65px;
+  height:65px;
+  font-size:24px;
+}
+
+.chat-box {
+  position:fixed;
+  bottom:95px;
+  right:20px;
+  width:300px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+  display:none;
+  flex-direction:column;
+}
+
+.chat-header {
+  background:#ff4d8d;
+  color:white;
+  padding:10px;
+}
+
+.chat-body {
+  height:200px;
+  padding:10px;
+  overflow-y:auto;
+}
+
+.chat-input {
+  display:flex;
+}
+
+.chat-input input {
+  flex:1;
+  border:none;
+  padding:10px;
+}
+
+.chat-input button {
+  background:#ff4d8d;
+  color:white;
+  border:none;
+  padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+<img src="logo.png" class="logo-img">
+
+<div class="menu">
+  <div class="menu-item" id="nav1">誰能領</div>
+  <div class="menu-item" id="nav2">如何領</div>
+  <div class="menu-item" id="nav3">登記入帳</div>
+  <div class="menu-item" id="nav4">ATM現領</div>
+  <div class="menu-item" id="nav5">郵局現領</div>
+</div>
+
+<div class="period">領取期間：114/11/5～115/4/30</div>
+</div>
+
+<div class="header">
+<button class="btn btn-light text-danger mb-2" id="queryBtn">查詢登記結果</button>
+<div id="section1">全民共享・政府相挺</div>
+
+<div class="circle-title">
+  <div class="circle">普</div>
+  <div class="circle">發</div>
+  <div class="circle">現</div>
+  <div class="circle">金</div>
+</div>
+</div>
+
+<div class="container">
+
+<div id="section2" class="card-grid">
+
+<!-- 登記入帳 -->
+<div class="method-card pink" id="card1">
+  <div class="icon"><i class="bi bi-credit-card"></i></div>
+  <div class="date">11/5 開放</div>
+  <h4>登記入帳</h4>
+
+  <div class="prepare-box">
+
+    <div style="color:#000; margin-top:10px;">
+      <strong>請備妥</strong>
+      <ul>
+        <li>發放對象健保卡號</li>
+        <li>本人/代領人身分證統一編號或居留證統一證號</li>
+        <li>本人/代領人金融機構帳號</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ATM -->
+<div class="method-card gold" id="card2">
+  <div class="icon"><i class="bi bi-bank"></i></div>
+  <div class="date">11/17 開放</div>
+  <h4>ATM現領</h4>
+
+  <div class="prepare-box">
+    
+
+    <div style="color:#000; margin-top:10px;">
+      <strong>請備妥</strong>
+      <ul>
+        <li>發放對象健保卡號</li>
+        <li>本人/代領人身分證統一編號或居留證統一證號</li>
+        <li>本人/代領人金融卡</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 郵局 -->
+<div class="method-card green" id="card3">
+  <div class="icon"><i class="bi bi-building"></i></div>
+  <div class="date">11/24 開放</div>
+  <h4>郵局現領</h4>
+
+  <div class="prepare-box">
+   
+
+    <div style="color:#000; margin-top:10px;">
+      <strong>請備妥</strong>
+      <ul>
+        <li>發放對象健保卡</li>
+        <li>本人/代領人身分證明文件</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="stats">
+  <p>已登記人數：1,234,567（更新：2025/11/10）</p>
+  <p>已領現人數：987,654（更新：2025/11/10）</p>
+</div>
+
+<div id="formSection">
+<div class="card p-4 shadow">
+<h4>登記資料</h4>
+<form id="form">
+<input class="form-control mb-2" placeholder="姓名" required>
+<input class="form-control mb-2" placeholder="身分證" required>
+<input class="form-control mb-2" placeholder="銀行帳號" required>
+<button class="btn btn-primary w-100">提交</button>
+</form>
+</div>
+</div>
+
+</div>
+
+<!-- 客服 -->
+<button class="chat-btn" onclick="toggleChat()">💬</button>
+
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">線上客服</div>
+  <div class="chat-body" id="chatBody">
+    <div>客服：您好，有什麼可以幫您？</div>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="chatInput">
+    <button onclick="sendMsg()">送出</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 id="modalTitle"></h5>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
